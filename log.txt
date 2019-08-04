@@ -1,0 +1,40 @@
+
+
+Auf https://api.slack.com/apps?new_app=1 kann man sich einen slack Zugangscode erzeugen bzw. die app anmelden. Auf https://api.slack.com/apps kann man die app weiter einstellen. Dort habe ich "Incoming Webhooks" aktiviert.
+
+Dort habe ich dann einen hook für https json erhalten. Im Oauth Tab wurde ein Oauth token kreiert. Scroll down bei basic info, um auch passwörter zu erfahren.
+
+Für python habe ich erstmal "apt install python3-venv gemacht. Dann
+
+    python3.6 -m venv --symlinks --system-site-packages ./slackenv
+
+In .gitignore "/slackenv" und "/token.txt" eingetragen.
+
+Für python brauche ich slackclient, also
+
+    source slackenv/bin/activate
+    pip3 install -v slackclient
+
+Die files in slackenv/lib/python3.6/site-packages/slack/web/..." verraten was über die API, pydoc/man-pages scheint es nicht zu geben
+
+Erstmal ein generelles Testprogramm geschrieben, um senden und lesen auszutesten. In token.txt das oauth token reingeschrieben, hoffe es ist richig.
+
+Erkenntnisse:
+
+* Ich muss wohl auch einen Bot User erzeugen, der mir ein oauth xoxb token liefert fürs schreiben, während xoxp fürs lesen der History genommen werden muss
+* Desweiteren muss in Oauths&Permissions weiter unten bei den scopes channels:history aktiviert werden.
+* Jedesmal, wenn man was ändert, muss man "uodaten" und dann die app "reinstallen" auf der Webseite
+* Fürs Schreiben kann ich auch den normalen humanreadable Channelnamen nehmen, fürs Lesen leider nicht, da muss ich erst den internen Namen erfahren, der steht in der URL des channels (die zweite id da drin, die erste ist wohl der workspace)
+
+
+
+
+
+
+
+
+
+
+
+
+
